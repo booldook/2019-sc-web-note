@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<header>
+	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>실시간 노트 v0.1</title>
@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/base-bootstrap.css">
 		<link rel="stylesheet" href="../css/note.css">
+	</head>
 	<body>
 		<header class="p-3 d-flex justify-content-between bg-primary text-white">
 			<div class="logo">
@@ -29,8 +30,19 @@
 				</div>
 			</div>
 		</header>
-		<div class="wrap h-100 d-flex">
-
+		<div class="wrap" style="height: calc(100% - 70px);">
+			<div class="row h-100 position-relative" style="margin: 0;">
+				<div class="lists col-10 col-md-4 h-100 bg-info">
+					<ul class="list border border-white rounded p-3 mt-3 bg-primary text-light">
+						<li class="d-flex">
+							<h1 class="bg-light text-primary rounded-circle text-center" style="width: 56px; height: 56px;">메</h1>
+							<div>메모입니다.</div>
+						</li>
+						<li>2019-08-26 16:22:23</li>
+					</ul>
+				</div>
+				<div class="conts col-12 col-md-8 h-100 bg-secondary"></div>
+			</div>
 		</div>
 		<script src="../js/imagesloaded.pkgd.min.js"></script>
 		<script src="/__/firebase/6.4.2/firebase-app.js"></script>
