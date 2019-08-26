@@ -23,12 +23,13 @@ document.querySelector("#btLogout").addEventListener("click", e => {
 function viewChg(state){
 	switch(state) {
 		case "R" :
-			if(user.photoURL) url = user.photoURL;
-			else url = "";
-			document.querySelector(".email img").setAttribute("src", url);
-			document.querySelector(".email-txt").innerHTML = user.email;
-			document.querySelector(".email").style.display = "flex";
-			document.querySelector("#btLogin").style.display = "none";
+			imagesLoaded(document.querySelector(".email img"), () => {
+				document.querySelector(".email img").setAttribute("src", user.photoURL);
+				document.querySelector(".email-txt").innerHTML = user.email;
+				document.querySelector(".email").style.display = "flex";
+				document.querySelector("#btLogin").style.display = "none";
+			});
+			document.querySelector(".email img").setAttribute("src", user.photoURL);	
 			break;
 		default :
 		document.querySelector(".email-txt").innerHTML = "";
