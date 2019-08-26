@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head>
+	<header>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>실시간 노트 v0.1</title>
+		<link rel="stylesheet" href="../css/fa.min.css">
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/base-bootstrap.css">
 		<link rel="stylesheet" href="../css/note.css">
 	<body>
+		<header class="p-3 d-flex justify-content-between bg-primary text-white">
+			<div class="logo">
+				<i class="fas fa-pen"></i> 
+				<h4 class="d-inline-block">국민노트앱</h4>
+			</div>
+			<div class="bts d-flex">
+				<button class="btn btn-success">
+					<i class="fab fa-google"></i> 구글로그인
+				</button>
+				<div class="email">
+					<div></div>
+					<button class="btn btn-danger">
+						<i class="fas fa-sign-out-alt"></i> 로그아웃
+					</button>
+				</div>
+			</div>
+		</header>
+		<div class="wrap h-100 d-flex">
 
-
+		</div>
 		<script src="/__/firebase/6.4.2/firebase-app.js"></script>
 		<script src="/__/firebase/6.4.2/firebase-auth.js"></script>
 		<script src="/__/firebase/6.4.2/firebase-database.js"></script>
