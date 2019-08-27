@@ -52,10 +52,11 @@ function onAdd(data) {
 	}
 	var html = `
 	<div class="d-flex ${outerCls}" style="flex: 1 0 100%;">
-		<ul class="chat p-3 text-light mb-5 position-relative ${innerCls}">
+		<ul class="chat p-3 text-left text-light mb-5 position-relative ${innerCls}">
 			<li class="f-0875">${data.val().name} : </li>
 			<li class="f-125">${data.val().content}</li>
-			<li class="f-0875 text-secondary position-absolute mt-3">${data.val().time}</li>
+			<li class="f-0875 text-secondary position-absolute mt-3">
+			${dspDate(new Date(data.val().time), 5)}</li>
 		</ul>
 	</div>`;
 	_chats.innerHTML = html + _chats.innerHTML;
@@ -85,5 +86,5 @@ _btSave.addEventListener("click", function (e) {
 		content: content,
 		time: new Date().getTime()
 	}).key;
-	_content.innerHTML = "";
+	_content.value = "";
 });

@@ -14,7 +14,7 @@ function dspDate(d, type=0) {
 	type 2: 2019년 8월 11일 9시
 	type 3: 2019년 8월 11일
 	type 4: 8월 11일
-	type
+	type 5: 11시 11분 12초
 	*/
 	switch(type) {
 		case 1 :
@@ -28,6 +28,9 @@ function dspDate(d, type=0) {
 			break;
 		case 4 :
 			returnStr = month + day;
+			break;
+		case 5 :
+			returnStr = hour + min + sec;
 			break;
 		default :
 			returnStr = year + month + day + hour + min + sec;
