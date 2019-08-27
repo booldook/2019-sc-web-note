@@ -56,3 +56,15 @@ function onChg(data) {
 }
 
 // 실제 데이터 저장 구현
+_btSave.addEventListener("click", function (e) {
+	var content = _content.value.trim();
+	if(content == "") {
+		alert("글을 작성하세요.");
+		_content.focus();
+		return false;
+	}
+	db.ref("root/notes/"+user.uid).push({
+		content: content,
+		time: new Date().getTime()
+	}).key;
+});
