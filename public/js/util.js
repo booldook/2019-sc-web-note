@@ -14,6 +14,7 @@ function dspDate(d, type=0) {
 	type 2: 2019년 8월 11일 9시
 	type 3: 2019년 8월 11일
 	type 4: 8월 11일
+	type
 	*/
 	switch(type) {
 		case 1 :

@@ -12,7 +12,7 @@ const _email = document.querySelector("#email");
 // 데이터베이스 관련 전역변수
 const _btSave = document.querySelector("#btSave");
 const _content = document.querySelector("#content");
-const _lists = document.querySelector(".lists");
+const _chats = document.querySelector(".chats");
 
 // 인증관련 이벤트
 _btLogin.addEventListener("click", function(){
@@ -28,7 +28,7 @@ auth.onAuthStateChanged(function(data){
 	user = data;
 	if(data) {
 		_email.innerHTML = data.email + "/" + data.uid;
-		_lists.innerHTML = "";
+		_chats.innerHTML = "";
 		dbInit();
 	}
 	else _email.innerHTML = "";
@@ -36,20 +36,29 @@ auth.onAuthStateChanged(function(data){
 
 // 데이터베이스 관련 이벤트
 function dbInit() {
-	db.ref("root/notes/"+user.uid).on("child_added", onAdd);
-	db.ref("root/notes/"+user.uid).on("child_removed", onRev);
-	db.ref("root/notes/"+user.uid).on("child_changed", onChg);
+	db.ref("root/chats/").on("child_added", onAdd);
+	db.ref("root/chats/").on("child_removed", onRev);
+	db.ref("root/chats/").on("child_changed", onChg);
 }
 
 // 데이터 추가 이벤트 후 실행되는 콜백함수
 function onAdd(data) {
 	console.log(data.val().content + "/" + data.val().time);
+	var outerCls = "justify-content-start";
+	var innerCls = "bg-primary";
+	if(data.val().uid == user.uid) {
+		outerCls = "justify-content-end";
+		innerCls = "bg-success";
+	}
 	var html = `
-	<ul class="list row border-bottom border-primary">
-		<li class="col-8 p-2">${data.val().content}</li>
-		<li class="col-4 p-2">${dspDate(new Date(data.val().time))}</li>
-	</ul>`;
-	_lists.innerHTML = html + _lists.innerHTML;
+	<div class="d-flex ${outerCls}" style="flex: 1 0 100%;">
+		<ul class="chat p-3 text-light mb-5 position-relative ${innerCls}">
+			<li class="f-0875">${data.val().name} : </li>
+			<li class="f-125">${data.val().content}</li>
+			<li class="f-0875 text-secondary position-absolute mt-3">${data.val().time}</li>
+		</ul>
+	</div>`;
+	_chats.innerHTML = html + _chats.innerHTML;
 }
 
 // 데이터 삭제 이벤트 후 실행되는 콜백함수
@@ -70,8 +79,11 @@ _btSave.addEventListener("click", function (e) {
 		_content.focus();
 		return false;
 	}
-	db.ref("root/notes/"+user.uid).push({
+	db.ref("root/chats/").push({
+		uid: user.uid,
+		name: user.displayName,
 		content: content,
 		time: new Date().getTime()
 	}).key;
+	_content.innerHTML = "";
 });
