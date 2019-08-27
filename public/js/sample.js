@@ -28,6 +28,7 @@ auth.onAuthStateChanged(function(data){
 	user = data;
 	if(data) {
 		_email.innerHTML = data.email + "/" + data.uid;
+		_lists.innerHTML = "";
 		dbInit();
 	}
 	else _email.innerHTML = "";
@@ -42,7 +43,13 @@ function dbInit() {
 
 // 데이터 추가 이벤트 후 실행되는 콜백함수
 function onAdd(data) {
-	
+	console.log(data.val().content + "/" + data.val().time);
+	var html = `
+	<ul class="list row border-bottom border-primary">
+		<li class="col-8 p-2">${data.val().content}</li>
+		<li class="col-4 p-2">${dspDate(new Date(data.val().time))}</li>
+	</ul>`;
+	_lists.innerHTML = html + _lists.innerHTML;
 }
 
 // 데이터 삭제 이벤트 후 실행되는 콜백함수
