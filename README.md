@@ -21,6 +21,8 @@ firebase init
 위와같이 실행하여 프로젝트 Initialize를 해준다.
 3. init을 진행중 선택화면이 나오면 프로젝트에 포함할 서비스를 선택한다.
 * database
+	* realtime database
+	* cloud stone
 * auth
 * storage
 * hosting 등
@@ -42,3 +44,12 @@ firebase init
 <script src="../js/util.js"></script>
 <script src="../js/note.js"></script>
 ```
+2. 프로젝트 구동
+	* 개발중일때 (개별적 node 서버를 구동하여 확인하며 개발한다.)
+	```
+	firebase serve
+	```
+	* 실제 서비스를 배포할때
+	```
+	firebase deploy
+	```
