@@ -10,6 +10,7 @@ const _btLogout = document.querySelector("#btLogout");
 const _btSave = document.querySelector("#btSave");
 const _content = document.querySelector("#noteTxt");
 const _lists = document.querySelector(".lists");
+const _btWing = document.querySelector("#btWing");
 
 // 인증기능 만들기
 // $("#btLogin").click(function(e){});
@@ -112,6 +113,22 @@ function dataGet(obj) {
 	});
 }
 
+// onClikc - btWing
+_btWing.addEventListener("click", () => {
+	var left = getComputedStyle(_lists).left.replace("px", "");
+	var tarLeft = "-"+getComputedStyle(_lists).width;
+	if(left == 0) {
+		_lists.style.left = tarLeft;
+		_btWing.querySelector(".fas").classList.remove("fa-angle-left");
+		_btWing.querySelector(".fas").classList.add("fa-angle-right");
+	}
+	else {
+		_lists.style.left = 0;
+		_btWing.querySelector(".fas").classList.add("fa-angle-left");
+		_btWing.querySelector(".fas").classList.remove("fa-angle-right");
+	}
+});
+
 // onResize 함수
 window.addEventListener("resize", function(e){
 	var position = getComputedStyle(_lists).position;
@@ -122,6 +139,8 @@ window.addEventListener("resize", function(e){
 
 	}
 });
+
+
 
 // 화면전환 함수
 function viewChg(state){
