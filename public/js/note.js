@@ -38,12 +38,23 @@ _btSave.addEventListener("click", (e) => {
 		_content.focus();
 		return false;
 	}
-	db.ref("root/notes/"+user.uid).push({
-		content: content,
-		time: new Date().getTime(),
-		icon: content.substring(0, 1)
-	}).key;
+	if(nowKey == null) {
+		// 신규작성
+		db.ref("root/notes/"+user.uid).push({
+			content: content,
+			time: new Date().getTime(),
+			icon: content.substring(0, 1)
+		}).key;
+	}
+	else {
+		// 수정
+		db.ref("root/notes/"+user.uid+"/"+nowKey).update({
+			content: content,
+			icon: content.substring(0, 1)
+		});
+	}
 	_content.value = "";
+	nowKey = null;
 });
 
 // Database init
@@ -59,8 +70,8 @@ function onAdd(data) {
 	var html = '';
 	html += '<ul class="list border border-white rounded p-3 mt-3 bg-primary text-light position-relative" id="'+data.key+'" onclick="dataGet(this);">';
 	html += '<li class="d-flex">';
-	html += '<h1 class="bg-light text-primary rounded-circle text-center mr-3 flex-shrink-0" style="width: 56px; height: 56px;">'+data.val().icon+'</h1>';
-	html += '<div>'+data.val().content.substring(0, 60)+'</div>';
+	html += '<h1 class="icon bg-light text-primary rounded-circle text-center mr-3 flex-shrink-0" style="width: 56px; height: 56px;">'+data.val().icon+'</h1>';
+	html += '<div class="cont">'+data.val().content.substring(0, 60)+'</div>';
 	html += '</li>';
 	html += '<li>'+dspDate(new Date(data.val().time))+'</li>';
 	html += '<li class="position-absolute" style="bottom: 5px; right: 10px; cursor: pointer;">';
@@ -78,7 +89,9 @@ function onRev(data) {
 
 // Database onChg 콜백함수
 function onChg(data) {
-
+	var id = data.key;
+	document.querySelector("#"+id+" .icon").innerHTML = data.val().icon;
+	document.querySelector("#"+id+" .cont").innerHTML = data.val().content.substring(0, 60);
 }
 
 // onclick 함수 : dataRev(this)
@@ -98,6 +111,11 @@ function dataGet(obj) {
 		_content.value = data.val().content;
 	});
 }
+
+// onResize 함수
+window.addEventListener("resize", function(e){
+	console.log(	document.querySelector(".lists").classList	);
+});
 
 // 화면전환 함수
 function viewChg(state){
