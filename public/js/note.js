@@ -56,14 +56,14 @@ function dbInit() {
 // Database onAdd 콜백함수
 function onAdd(data) {
 	var html = '';
-	html += '<ul class="list border border-white rounded p-3 mt-3 bg-primary text-light position-relative">';
+	html += '<ul class="list border border-white rounded p-3 mt-3 bg-primary text-light position-relative" id="'+data.key+'">';
 	html += '<li class="d-flex">';
-	html += '<h1 class="bg-light text-primary rounded-circle text-center mr-3" style="width: 56px; height: 56px;">'+data.val().icon+'</h1>';
+	html += '<h1 class="bg-light text-primary rounded-circle text-center mr-3 flex-shrink-0" style="width: 56px; height: 56px;">'+data.val().icon+'</h1>';
 	html += '<div>'+data.val().content+'</div>';
 	html += '</li>';
 	html += '<li>'+dspDate(new Date(data.val().time))+'</li>';
 	html += '<li class="position-absolute" style="bottom: 5px; right: 10px; cursor: pointer;">';
-	html += '<i class="fas fa-trash-alt"></i>';
+	html += '<i class="fas fa-trash-alt" onclick="dataRev(this);"></i>';
 	html += '</li>';
 	html += '</ul>';
 	_lists.innerHTML = html + _lists.innerHTML;
@@ -71,12 +71,22 @@ function onAdd(data) {
 
 // Database onRev 콜백함수
 function onRev(data) {
-
+	var id = data.key;
+	document.querySelector("#"+id).remove();
 }
 
 // Database onChg 콜백함수
 function onChg(data) {
 
+}
+
+// onclick 함수 : dataRev()
+function dataRev(obj) {
+	//console.log(obj.parentNode.parentNode.getAttribute("id"));
+	if(confirm("진심 삭제?")) {
+		var key = obj.parentNode.parentNode.getAttribute("id");
+		db.ref("root/notes/"+user.uid+"/"+key).remove();
+	}
 }
 
 
