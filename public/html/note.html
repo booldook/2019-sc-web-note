@@ -33,23 +33,16 @@
 		<div class="wrap" style="height: calc(100% - 70px);">
 			<div class="row h-100 position-relative" style="margin: 0;">
 				<div class="lists col-10 col-md-4 h-100 bg-info">
-					<ul class="list border border-white rounded p-3 mt-3 bg-primary text-light position-relative">
-						<li class="d-flex">
-							<h1 class="bg-light text-primary rounded-circle text-center mr-3" style="width: 56px; height: 56px;">메</h1>
-							<div>메모입니다.</div>
-						</li>
-						<li>2019-08-26 16:22:23</li>
-						<li class="position-absolute" style="bottom: 5px; right: 10px; cursor: pointer;">
-							<i class="fas fa-trash-alt"></i>
-						</li>
-					</ul>
+					
 				</div>
 				<div class="conts col-12 col-md-8 h-100 bg-light p-3">
-					<textarea id="noteTxt" class="w-100 h-75 form-control"></textarea>
-					<div class="text-center my-4">
-						<button class="btn btn-primary">저장</button>
-						<button class="btn btn-danger">취소</button>
-					</div>
+					<form class="h-100">
+						<textarea name="noteTxt" id="noteTxt" class="w-100 h-75 form-control"></textarea>
+						<div class="text-center my-4">
+							<button type="button" class="btn btn-primary" id="btSave">저장</button>
+							<button type="reset" class="btn btn-danger" id="btReset">취소</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
