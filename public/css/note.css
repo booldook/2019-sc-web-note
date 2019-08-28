@@ -2,7 +2,7 @@ html, body {width: 100%; height: 100%;}
 .icon {width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: #10295f;}
 
 .email-txt {display: none;}
-.lists {position: absolute; z-index: 9999;}
+.lists {position: absolute; z-index: 9999; height: 100%; overflow: auto;}
 
 @media screen and (min-width: 768px) {
 	.email-txt {display: block;}

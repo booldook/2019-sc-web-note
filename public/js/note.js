@@ -3,6 +3,7 @@ const google = new firebase.auth.GoogleAuthProvider();
 const db = firebase.database();
 
 var user = null;	// 로그인한 사용자의 정보를 저장하는 변수
+var nowKey = null;
 
 const _btLogin = document.querySelector("#btLogin");
 const _btLogout = document.querySelector("#btLogout");
@@ -29,7 +30,7 @@ _btLogout.addEventListener("click", e => {
 	auth.signOut();
 });
 
-// 노트 추가하기
+// 노트 추가/수정하기
 _btSave.addEventListener("click", (e) => {
 	var content = _content.value.trim();
 	if(content === "") {
@@ -56,10 +57,10 @@ function dbInit() {
 // Database onAdd 콜백함수
 function onAdd(data) {
 	var html = '';
-	html += '<ul class="list border border-white rounded p-3 mt-3 bg-primary text-light position-relative" id="'+data.key+'">';
+	html += '<ul class="list border border-white rounded p-3 mt-3 bg-primary text-light position-relative" id="'+data.key+'" onclick="dataGet(this);">';
 	html += '<li class="d-flex">';
 	html += '<h1 class="bg-light text-primary rounded-circle text-center mr-3 flex-shrink-0" style="width: 56px; height: 56px;">'+data.val().icon+'</h1>';
-	html += '<div>'+data.val().content+'</div>';
+	html += '<div>'+data.val().content.substring(0, 60)+'</div>';
 	html += '</li>';
 	html += '<li>'+dspDate(new Date(data.val().time))+'</li>';
 	html += '<li class="position-absolute" style="bottom: 5px; right: 10px; cursor: pointer;">';
@@ -80,8 +81,9 @@ function onChg(data) {
 
 }
 
-// onclick 함수 : dataRev()
+// onclick 함수 : dataRev(this)
 function dataRev(obj) {
+	event.stopPropagation();
 	//console.log(obj.parentNode.parentNode.getAttribute("id"));
 	if(confirm("진심 삭제?")) {
 		var key = obj.parentNode.parentNode.getAttribute("id");
@@ -89,6 +91,13 @@ function dataRev(obj) {
 	}
 }
 
+// onClick 함수 : dataGet(this)
+function dataGet(obj) {
+	nowKey = obj.getAttribute("id");
+	db.ref("root/notes/"+user.uid+"/"+nowKey).once("value").then((data) => {
+		_content.value = data.val().content;
+	});
+}
 
 // 화면전환 함수
 function viewChg(state){
