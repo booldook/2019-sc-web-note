@@ -59,7 +59,7 @@ _btSave.addEventListener("click", (e) => {
 
 // Database init
 function dbInit() {
-	_lists.innerHTML = "";
+	_lists.innerHTML = '';
 	db.ref("root/notes/"+user.uid).on("child_added", onAdd);
 	db.ref("root/notes/"+user.uid).on("child_removed", onRev);
 	db.ref("root/notes/"+user.uid).on("child_changed", onChg);
@@ -114,7 +114,13 @@ function dataGet(obj) {
 
 // onResize 함수
 window.addEventListener("resize", function(e){
-	console.log(	document.querySelector(".lists").classList	);
+	var position = getComputedStyle(_lists).position;
+	if(position === "absolute") {
+
+	}
+	else {
+
+	}
 });
 
 // 화면전환 함수
